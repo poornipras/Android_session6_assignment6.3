@@ -1,0 +1,66 @@
+package com.pooja.fragment_custom_list;
+
+import android.app.ListFragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Pooja on 12/30/2016.
+ */
+
+public class fragment_custom extends ListFragment
+{
+    String[]names;
+    String[]description;
+    int[] images={R.drawable.youtube,R.drawable.blog};
+    ArrayList<HashMap<String,String>> arrayList=new ArrayList<HashMap<String, String>>();
+    SimpleAdapter adapter;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        names=getResources().getStringArray(R.array.name);
+        description=getResources().getStringArray(R.array.description);
+        HashMap<String,String> map=new HashMap<String, String>();
+        for(int i=0;i<names.length;i++)
+        {
+            map=new HashMap<String, String>();
+            map.put("name",names[i]);
+            map.put("description",description[i]);
+            map.put("image",Integer.toString(images[i]));
+            arrayList.add(map);
+        }
+        String[] keysfrom={"name","description","image"};
+        int[] tokey={R.id.txt_name,R.id.txt_description,R.id.imageView};
+        adapter=new SimpleAdapter(getActivity(),arrayList,R.layout.each_row_list_frag,keysfrom,tokey);
+        setListAdapter(adapter);
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String value=arrayList.get(i).get("name");
+                Toast.makeText(getActivity(),value,Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+}

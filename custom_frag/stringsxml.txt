@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Fragment_custom_list</string>
+    <string-array name="name">
+        <item>Youtube</item>
+        <item>Blogger</item>
+    </string-array>
+<string-array name="description">
+    <item>YouTube description</item>
+    <item>Blogger description</item>
+</string-array>
+</resources>
